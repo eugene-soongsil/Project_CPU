@@ -1,4 +1,4 @@
-module Top(
+module Team4_CPU(
     input   i_clk,
     input   i_reset,
     input   i_stop,
@@ -13,14 +13,14 @@ wire            w_write_en;
 wire    [11:0]  w_pc;
 
 
-fetch   fetcher(
+FetchStage   fetcher(
     .i_clk(i_clk),
     .i_reset(i_reset),
     .i_stop(i_stop),
     .o_pc(w_pc)
 );
 
-decode  decoder(
+DecodeStage  decoder(
     .i_instruction(w_instruction),
     .o_srcadd_1(w_srcadd_1),
     .o_srcadd_2(w_srcadd_2),
@@ -28,7 +28,7 @@ decode  decoder(
     .o_destadd(w_destadd1)
 );
 
-excute  excuter(
+ExcuteStage  excuter(
     .i_clk(i_clk),
     .i_reset(i_reset),
     .i_opcode(w_opcode2),
@@ -48,7 +48,7 @@ InstMem     mem(
     .o_instruction(w_instruction)
 );
 
-resister    regi(
+ResisterBank    regi(
     .i_clk(i_clk),
     .i_reset(i_reset),
     .i_write_en(w_write_en),

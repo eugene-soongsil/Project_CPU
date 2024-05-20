@@ -1,4 +1,4 @@
-module fetch(
+module FetchStage(
     input i_clk,
     input i_reset,
     input i_stop,

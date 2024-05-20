@@ -1,4 +1,4 @@
-module resister(
+module ResisterBank(
     input i_clk,
     input i_reset,
     input i_write_en,

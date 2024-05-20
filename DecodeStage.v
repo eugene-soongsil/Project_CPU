@@ -1,4 +1,4 @@
-module decode(
+module DecodeStage(
     input [15:0] i_instruction,
     output [3:0] o_opcode,
     output [3:0] o_srcadd_1,
