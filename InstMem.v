@@ -1,5 +1,5 @@
 module InstMem(
-    input [11:0] PC_pc,
+    input [11:0] PCAdd_pc,
     output [15:0] M_instruction
 ); //instruction memory(fetch)
 

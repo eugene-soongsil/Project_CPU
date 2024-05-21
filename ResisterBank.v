@@ -2,7 +2,6 @@ module ResisterBank(
     input i_clk,
     input i_reset,
     input i_write_en,
-    input [3:0] i_opcode,
     input [3:0] i_destadd,
     input [3:0] i_read_reg1,
     input [3:0] i_read_reg2,
@@ -10,7 +9,6 @@ module ResisterBank(
     input [7:0] i_write_data,
     output [7:0] o_read_data1,
     output [7:0] o_read_data2,
-    output [3:0] o_opcode,
     output [3:0] o_destadd
 );
 //opcode, destadd 대입부

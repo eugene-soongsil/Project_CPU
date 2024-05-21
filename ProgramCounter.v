@@ -12,7 +12,7 @@ always@(posedge i_clk or negedge i_reset)begin
     if(~i_reset)
         r_pcNew <= 0;
     else if(~i_enable)
-        r_pcNew <= i_pcOld + 12'd1;
+        r_pcNew <= i_pcOld;
 end
 
 assign o_pcNew = r_pcNew;
