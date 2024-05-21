@@ -1,9 +1,6 @@
 module InstMem(
-    input i_clk,
-    input i_reset,
-    input i_stop,
-    input [11:0] i_pc,
-    output [15:0] o_instruction
+    input [11:0] PC_pc,
+    output [15:0] M_instruction
 ); //instruction memory(fetch)
 
     reg [15:0] r_instruction;
@@ -24,7 +21,7 @@ module InstMem(
         mem[3] = 16'b0001_0010_0100_0010; //2+4 to reg[2]
     end
 
-    assign o_instruction = r_instruction;
+    assign M_instruction = r_instruction;
 
 
 endmodule

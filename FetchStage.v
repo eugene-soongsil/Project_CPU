@@ -1,25 +1,16 @@
 module FetchStage(
-    input i_clk,
-    input i_reset,
-    input i_stop,
-    output [11:0] o_pc
+    input   [11:0]      i_pcF,
+    output  [11:0]      o_pcF,
+    output  [15:0]       o_instruction
 );//PC behavior
 
-    wire [11:0] next_pc;
-    reg [11:0] r_pc; //= 12'h000;
-    reg [11:0] o_pc;
+PC_Adder    inst_PCAdder(
+    .i_pcOld()
+)
 
-    always @(posedge i_clk or negedge i_reset) begin
-        if (~i_reset)begin
-            o_pc <= 12'h000;
-            r_pc <= 12'h000;
-        end
-        else if(~i_stop)begin
-            o_pc <= r_pc;
-            r_pc <= next_pc;
-        end
-    end
-    
-    assign next_pc = r_pc + 12'h001;
+InstMem     inst_InstMem(
+    input
+)
+
 
 endmodule
