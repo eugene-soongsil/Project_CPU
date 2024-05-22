@@ -28,7 +28,7 @@ always@(posedge i_clk or negedge i_reset)begin
         r_destadd <= i_destadd;
 end
 
-reg [7:0] registers [0:15];
+reg [15:0] registers [0:15];
 reg [3:0] r_read_data1, r_read_data2;
 
 //resister initialize and write-back(excute)
