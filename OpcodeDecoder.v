@@ -1,14 +1,24 @@
 module OpcodeDecoder(
     input   [3:0]       i_opcode,
-    output              jump, flush, RegWrite, MemWrite,
+    output              jump, flush, RegWrite, MemWrite, immediate,
     output  [1:0]       o_alufunc
 );
 
-reg     [3:0]           flag;
+reg     [6:0]           flag;
 
 parameter load          = 4'b0000,
           store         = 4'b0001,
+          immediateAdd  = 4'b0010,
+          jump_inst     = 4'b0011,
+          jumpAndLink   = 4'b0100,
+          LWRegWrite    = 4'b0110,
+          SWMemWrite    = 4'b0111,
+          jumpFlush     = 4'b1000;
+
           
+always@(*)begin
+    {jump, o_alufunc, flush, RegWrite, MemWrite, immediate} = flah;
+end
 
 
 /*
