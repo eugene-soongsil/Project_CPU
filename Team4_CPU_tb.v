@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module  FDE_tb();
+module  Team4_CPU_tb();
 
 reg             i_clk, i_reset, i_stop;
 wire    [3:0]   o_write_add;

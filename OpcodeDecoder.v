@@ -14,11 +14,12 @@ parameter load          = 4'b0000,
           LWRegWrite    = 4'b0110,
           SWMemWrite    = 4'b0111,
           jumpFlush     = 4'b1000;
-
           
 always@(*)begin
     {jump, o_alufunc, flush, RegWrite, MemWrite, immediate} = flah;
 end
+
+
 
 
 /*
