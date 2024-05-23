@@ -3,12 +3,7 @@ module ControlUnit(
     output          jumpD, flushD, RegWriteD, MemWriteD, immediateD,
     output [1:0]    alufuncD   
     /*
-    output      o_stallF,
-    output      o_stallD,
-    output      o_stallE,
-    output      o_write_en,
-    output      o_setPC,
-    output      
+    //jump, flush -> Hazard unit? or directly datapath..??
     */
 );
 

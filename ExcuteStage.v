@@ -1,10 +1,8 @@
 module ExcuteStage(
-    input [3:0] i_opcode,
-    input [7:0] i_srcdata_1,
-    input [7:0] i_srcdata_2,
-    input [3:0] i_destadd,
-    output [3:0] o_write_add,//to reg
-    output [7:0] o_write_data//to reg
+    input   [1:0]           alufuncE,
+    input   [15:0]          srcdataE1, stcdataD2,
+    input   [3:0]           destaddE,
+    output  reg [15:0]      result
 );
 
 ALU     instALU(
