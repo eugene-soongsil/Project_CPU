@@ -1,21 +1,22 @@
 module ResisterFile(
-    input i_clk,
-    input i_reset,
-    input i_write_en,
-    input [3:0] i_read_add1,
-    input [3:0] i_read_add2,
-    input [3:0] i_write_add,
-    input [15:0] i_write_data,
-    output [15:0] o_read_data1,
-    output [15:0] o_read_data2,
+    input              clk,
+    input              reset,
+    input              i_write_en,
+    input              immediateInst,
+    input       [3:0]  i_read_add1,
+    input       [3:0]  i_read_add2,
+    input       [3:0]  i_write_add,
+    input       [15:0] i_write_data,
+    output reg  [15:0] o_read_data1,
+    output reg  [15:0] o_read_data2,
 );
 
 //resister initialize and write-back(excute)
 reg [15:0] registers [0:15];
 
 integer i;
-always @(negedge i_clk or negedge i_reset) begin //negedge clk for 1clock cycle
-    if (~i_reset) begin
+always @(negedge clk or negedge reset) begin //negedge clk for 1clock cycle
+    if (~reset) begin
         for (i = 0; i < 16; i = i + 1) begin
             registers[i] <= i;
         end
@@ -25,7 +26,21 @@ always @(negedge i_clk or negedge i_reset) begin //negedge clk for 1clock cycle
     end
 end
 
-assign o_read_data1 = registers[i_read_add1];
-assign o_read_data2 = registers[i_read_add2];
+//warning
+always@(*)begin
+    if(!reset)begin
+        o_read_data1 = 0;
+        o_read_data2 = 0;
+    end
+    else if(immediateInst)begin
+        o_read_data1 = registers[i_read_add1];
+        o_read_data1 = {12'd0, i_read_add2};
+    end
+    else begin
+        o_read_data1 = registers[i_read_add1];
+        o_read_data2 = registers[i_read_add2];
+    end
+end
+
 
 endmodule
