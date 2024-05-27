@@ -1,8 +1,8 @@
 module MemoryData(
     input                  clk, reset, write_en,
-    input      [15:0]       addrM,
+    input      [15:0]      addrM,
     input      [15:0]      write_dataM,
-    output reg [15:0]      read_dataM
+    output reg [15:0]      read_dataM,
 );
 
 integer i;

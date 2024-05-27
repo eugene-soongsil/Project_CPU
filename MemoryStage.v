@@ -3,7 +3,7 @@ module MemoryStage(
     input               MemWriteM,
     input       [15:0]  alu_resultM,
     output reg  [15:0]  MemReadDataM,
-    output reg  [15:0]  alu_resultM
+    output reg  [15:0]  alu_resultMout
 );
 
 MemoryData  inst_MemoryData(
@@ -12,7 +12,9 @@ MemoryData  inst_MemoryData(
     .write_en(MemWriteM),
     .addrM(alu_resultM),
     .write_dataM(alu_resultM),
-    .read_dataM(MemReadDataM)
+    .read_dataM(MemReadDataM) //out
 );
+
+assign alu_resultMout = alu_resultM;
 
 endmodule

@@ -1,7 +1,8 @@
 module WriteBackRegister(
     input                   clk, reset,
     input                   MemToRegM, RegWriteM,
-    input       [15:0]      alu_resultM, alu_resultM,
+    input       [15:0]      MemReadDataM,
+    input       [15:0]      alu_resultMin,
     output                  MemToRegW, RegWriteW,
     output      [15:0]      MemReadDataW, alu_resultW
 );

@@ -2,7 +2,7 @@ module ResisterFile(
     input              clk,
     input              reset,
     input              i_write_en,
-    input              immediateInst,
+    input              immediateC,
     input       [3:0]  i_read_add1,
     input       [3:0]  i_read_add2,
     input       [3:0]  i_write_add,
@@ -32,7 +32,7 @@ always@(*)begin
         o_read_data1 = 0;
         o_read_data2 = 0;
     end
-    else if(immediateInst)begin
+    else if(immediateC)begin
         o_read_data1 = registers[i_read_add1];
         o_read_data1 = {12'd0, i_read_add2};
     end

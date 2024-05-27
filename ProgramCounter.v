@@ -1,6 +1,6 @@
 module ProgramCounter(
-    input           i_clk,
-    input           i_reset,
+    input           clk,
+    input           reset,
     input           enable,
     input  [11:0]   i_pcOld
     output [11:0]   o_pcNew,
@@ -8,8 +8,8 @@ module ProgramCounter(
 
 reg     [11:0]      r_pcNew;
 
-always@(posedge i_clk or negedge i_reset)begin
-    if(~i_reset)
+always@(posedge clk or negedge reset)begin
+    if(~reset)
         r_pcNew <= 0;
     else if(~enable)
         r_pcNew <= i_pcOld;
