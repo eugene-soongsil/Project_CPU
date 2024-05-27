@@ -11,7 +11,7 @@ parameter   ADD = 2'b00,
             SLT = 2'b11,
 
 always@(*)begin
-    case(ALU_control)
+    case(ALU_func)
             ADD: ALU_result = A + B; 
             SUB: ALU_result = A - B;
             MUL: ALU_result = A * B;
