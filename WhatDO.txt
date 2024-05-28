@@ -2,3 +2,5 @@ Now, What should i do
 
 1. flush기능 구현 control -> fetch? decode?
 2. decode 의PC_branch -> programCounter연결(MUX사용)
+
+3. flush -> branch로 대채 후 기능 추가

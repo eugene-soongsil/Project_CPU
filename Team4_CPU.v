@@ -16,7 +16,7 @@ DataPath        inst_DataPath(
     .flushC(flushC),
     .RegWriteC(RegWriteC),
     .MemWriteC(MemWriteC),
-    .MemToRegC(MemToRegC)
+    .MemToRegC(MemToRegC),
     .immediateC(immediateC),
     .alufuncC(alufuncC),
     .opcodeDP(opcodeDP), //out

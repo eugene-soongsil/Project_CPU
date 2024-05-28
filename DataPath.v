@@ -16,7 +16,7 @@ wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDa
                         alu_resultMout;
   //wire선언부터 시작
 
-MUX_11bit           inst_MUX_11bit(
+MUX_11bit           inst_MUX_PC(
     .in1(PC_branch),
     .in2(w_pcD),
     .sel(branchC), //?
@@ -72,6 +72,7 @@ ExcuteRegister      inst_ExcuteRegister(
     .srcDataD1(srcDataD1),
     .srcDataD2(srcDataD2),
     .destAddD(destAddD),
+    .flushC(flushC),
     //.pcD(pcD), //?
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),

@@ -1,5 +1,5 @@
 module ExcuteRegister(
-    input               clk, reset,
+    input               clk, reset, flushC,
     input               RegWriteC, MemWriteC, MemToRegC //from opcode1
     input       [1:0]   aluFuncC,              //from opcode2
     input       [15:0]  srcDataD1, srcDataD2, //from inst2,3
@@ -12,7 +12,7 @@ module ExcuteRegister(
 );
 
 always@(posedge clk or negedge reset)begin
-    if(~reset)begin
+    if(~reset | flushC)begin
         RegWriteE <= 0;
         MemWriteE <= 0;
         MemToRegE <= 0;
