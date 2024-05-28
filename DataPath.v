@@ -7,17 +7,27 @@ module DataPath(
 );
 
 wire                    RegWriteE, RegWriteM, RegWriteW, MemToRegE, MemToRegM, MemToRegW,
-                        MemWriteE, MemWriteM; 
-wire    [11:0]          w_pcNew, w_pcF, w_pcD, PC_branch;
-wire    [15:0]          w_instF, w_instD,  //wire선언부터 시작
-                        
+                        MemWriteE, MemWriteM;
+wire    [1:0]           aluFuncE;
+wire    [3:0]           destAddD, destAddE;
+wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
+wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDataE2,
+                        alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
+                        alu_resultMout;
+  //wire선언부터 시작
 
+MUX_11bit           inst_MUX_11bit(
+    .in1(PC_branch),
+    .in2(w_pcD),
+    .sel(branchC), //?
+    .out(MUX_pc)
+);
 
 ProgramCounter      inst_ProgramCounter(
     .clk(clk),
     .reset(reset),
     .enable(enable),
-    .i_pcOld(w_pcD), //?
+    .i_pcOld(MUX_pc), //from decode
     .o_pcNew(w_pcNew) //out
 );
 
@@ -62,7 +72,7 @@ ExcuteRegister      inst_ExcuteRegister(
     .srcDataD1(srcDataD1),
     .srcDataD2(srcDataD2),
     .destAddD(destAddD),
-    .pcD(pcD), //?
+    //.pcD(pcD), //?
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),

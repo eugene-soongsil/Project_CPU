@@ -20,7 +20,7 @@ module Instruction_Mem(
         inst[2] = 16'b0001_0001_0010_0001; //1+2 to reg[1]
         inst[3] = 16'b0001_0010_0100_0010; //2+4 to reg[2]
     end
-
+    
     assign M_instruction = r_instruction;
 
 
