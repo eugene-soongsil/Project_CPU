@@ -7,10 +7,10 @@ module Instruction_Mem(
 
     //initial instruction set
     initial begin
-        instM[0] = 16'b0001_0100_0011_1000; //ADD reg[4] + reg[3]; register[8]
-        instM[1] = 16'b0010_1000_0010_1111; //SUB reg[8] - reg[2]; register[15]
-        instM[2] = 16'b0001_0001_0010_0001; //1+2 to reg[1]
-        instM[3] = 16'b0001_0010_0100_0010; //2+4 to reg[2]
+        instM[0] = 16'b0000_0000_0000_0000; //LDA r0, [r0] 
+        instM[1] = 16'b1000_0000_0010_0001; //ADD r1, r0, #2
+        instM[2] = 16'b1000_0001_0011_0010; //ADD r2, r1, #3 
+        instM[3] = 16'b1000_0010_0001_0011; //SUB r3, r2, #1
     end
 
     assign M_instruction = instM[PCAdd_pc];
