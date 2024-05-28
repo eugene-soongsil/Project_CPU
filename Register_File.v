@@ -34,7 +34,7 @@ always@(*)begin
     end
     else if(immediateC)begin
         o_read_data1 = registers[i_read_add1];
-        o_read_data1 = {12'd0, i_read_add2};
+        o_read_data2 = {12'd0, i_read_add2};
     end
     else begin
         o_read_data1 = registers[i_read_add1];

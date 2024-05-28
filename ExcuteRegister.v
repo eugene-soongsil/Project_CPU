@@ -13,13 +13,13 @@ module ExcuteRegister(
 
 always@(posedge clk or negedge reset)begin
     if(~reset | flushC)begin
-        RegWriteE <= 0;
-        MemWriteE <= 0;
-        MemToRegE <= 0;
-        alufuncE  <= 0;
-        srcDataE1 <= 0;
-        srcDataE2 <= 0;
-        destAddE  <= 0;
+        RegWriteE <= 1'b0;
+        MemWriteE <= 1'b0;
+        MemToRegE <= 1'b0;
+        alufuncE  <= 2'b00;
+        srcDataE1 <= 16'h0000;
+        srcDataE2 <= 16'h0000;
+        destAddE  <= 4'b0000;
     end
     else begin
         RegWriteE <= RegWriteC;

@@ -10,11 +10,11 @@ module MemoryRegister(
 
 always@(posedge clk or negedge reset)begin
     if(~reset)begin
-        MemWriteM   <= 0;
-        MemToRegM   <= 0;
-        RegWriteM   <= 0;
-        alu_resultM <= 0;
-        destAddM    <= 0;
+        MemWriteM   <= 1'b0;
+        MemToRegM   <= 1'b0;
+        RegWriteM   <= 1'b0;
+        alu_resultM <= 16'h0000;
+        destAddM    <= 4'b0000;
     end
     else begin
         MemWriteM   <= MemWriteE;

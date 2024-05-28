@@ -11,11 +11,11 @@ module WriteBackRegister(
 
 always@(posedge clk or negedge reset)begin
     if(~reset)begin
-        MemToRegW    <= 0;
-        RegWriteW    <= 0;
-        MemReadDataW <= 0;
-        alu_resultW  <= 0;
-        destAddW     <= 0;
+        MemToRegW    <= 1'b0;
+        RegWriteW    <= 1'b0;
+        MemReadDataW <= 16'h0000;
+        alu_resultW  <= 16'h0000;
+        destAddW     <= 4'b0000;
     end
     else begin
         MemToRegW    <= MemToRegM;

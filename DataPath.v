@@ -17,7 +17,7 @@ wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDa
 
 MUX_12bit           inst_MUX_PC(
     .in1(PC_branch),
-    .in2(w_pcD),
+    .in2(w_pcF),
     .sel(branchC), //?
     .out(MUX_pc)
 );
@@ -57,6 +57,7 @@ DecodeStage         inst_DecodeStage(
     .branchD(branchC),
     .pcD(w_pcD),
     .PC_branch(PC_branch), //out
+    .opcodeDP(opcodeDP),
     .destaddD(destAddD),
     .srcdataD1(srcDataD1),
     .srcdataD2(srcDataD2)

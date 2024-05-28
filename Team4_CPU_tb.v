@@ -1,6 +1,9 @@
 `timescale 1ns/1ps
 module  Team4_CPU_tb();
 
+reg             clk, reset, enable;
+wire    [15:0]  DataOut;
+
 Team4_CPU   inst_CPU(
     .clk(clk),
     .reset(reset),
