@@ -1,13 +1,13 @@
 module MemoryData(
     input                  clk, reset, write_en,
-    input      [15:0]      addrM,
+    input      [3:0]       addrM,
     input      [15:0]      write_dataM,
     output     [15:0]      read_dataM
 );
 
 integer i;
 
-reg [15:0] mem[127:0];
+reg [15:0] mem[15:0];
 
 always@(negedge clk or negedge reset)begin //neg? pos?
     if(~reset)begin

@@ -1,5 +1,5 @@
 module Team4_CPU(
-    input               clk, reset,
+    input               clk, reset, enable,
     output  [15:0]      DataOut
 );
 

@@ -10,7 +10,7 @@ OpcodeDecoder   inst_OpcodeDecoder(
     .flush(flushD),
     .RegWrite(RegWriteD),
     .MemWrite(MemWriteD),
-    .MemToReg(MemTORegD),
+    .MemToReg(MemToRegD),
     .immediate(immediateD),
     .o_alufunc(alufuncD)
 );

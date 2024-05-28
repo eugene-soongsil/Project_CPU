@@ -15,6 +15,17 @@ parameter LDA            = 2'b00,
           STA            = 2'b01,
           IMM            = 2'b10,
           BAF            = 2'b11;
+
+          /*LDA_immadd
+          LDA_
+          STA
+          CAL_add
+          CAL_sub
+          CAL_mul
+          CAL_SLT
+          BAF_immsub
+          BAF_reg*/
+
  
 always @(*) begin
     {branch, flush, RegWrite, MemWrite, MemToReg, immediate} = flag;
@@ -22,10 +33,10 @@ end
 
 always @(*) begin
     case(i_opcode[3:2])
-        LDA             : flag = 6'b001010;
+        LDA             : flag = 6'b001011;
         STA             : flag = 6'b000100;
         IMM             : flag = 6'b001001;
-        BAF             : flag = 6'b110000;
+        BAF             : flag = 6'b110000;//src1-imm = 0 -> branch
         default         : flag = 6'b000000; 
     endcase
 end
