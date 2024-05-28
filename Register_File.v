@@ -1,4 +1,4 @@
-module ResisterFile(
+module Register_File(
     input              clk,
     input              reset,
     input              i_write_en,
@@ -8,7 +8,7 @@ module ResisterFile(
     input       [3:0]  i_write_add,
     input       [15:0] i_write_data,
     output reg  [15:0] o_read_data1,
-    output reg  [15:0] o_read_data2,
+    output reg  [15:0] o_read_data2
 );
 
 //resister initialize and write-back(excute)
@@ -18,7 +18,7 @@ integer i;
 always @(negedge clk or negedge reset) begin //negedge clk for 1clock cycle
     if (~reset) begin
         for (i = 0; i < 16; i = i + 1) begin
-            registers[i] <= i;
+            registers[i] <= 16'h0000;
         end
     end
     else if (i_write_en) begin

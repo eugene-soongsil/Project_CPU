@@ -14,7 +14,7 @@ wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
 wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
                         alu_resultMout;
-  //wire선언부터 시작
+  //wire?��?���??�� ?��?��
 
 MUX_11bit           inst_MUX_PC(
     .in1(PC_branch),
@@ -32,7 +32,7 @@ ProgramCounter      inst_ProgramCounter(
 );
 
 FetchStage          inst_FetchStage(
-    .i_pcF(w_pcNew)
+    .i_pcF(w_pcNew),
     .o_pcF(w_pcF), //out
     .o_instF(w_instF)
 );
@@ -51,6 +51,7 @@ DecodeStage         inst_DecodeStage(
     .clk(clk),
     .reset(reset),
     .write_en(RegWriteW),
+    .destAddW(destAddW),
     .i_write_data(ResultW),
     .immediateC(immediateC),
     .i_inst(w_instD),
@@ -77,7 +78,7 @@ ExcuteRegister      inst_ExcuteRegister(
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),
-    .aluFuncE(aluFuncE),
+    .alufuncE(aluFuncE),
     .srcDataE1(srcDataE1),
     .srcDataE2(srcDataE2),
     .destAddE(destAddE)
@@ -87,17 +88,18 @@ ExcuteStage         inst_ExcuteStage(
     .aluFuncE(aluFuncE),
     .srcDataE1(srcDataE1),
     .srcDataE2(srcDataE2),
-    .destAddE(destAddE),
     .alu_resultE(alu_resultE) //out
 );
 
 MemoryRegister      inst_MemoryRegister(
     .clk(clk),
     .reset(reset),
+    .destAddE(destAddE),
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),
     .RegWriteE(RegWriteE),
     .alu_resultE(alu_resultE),
+    .destAddM(destAddM),//out
     .MemWriteM(MemWriteM),
     .MemToRegM(MemToRegM),
     .RegWriteM(RegWriteM),
@@ -116,11 +118,13 @@ MemoryStage         inst_MemoryStage(
 WriteBackRegister   inst_WriteBackRegister(
     .clk(clk),
     .reset(reset),
+    .destAddM(destAddM),
     .MemToRegM(MemToRegM),
     .RegWriteM(RegWriteM),
     .MemReadDataM(MemReadDataM),
     .alu_resultMin(alu_resultMout),
-    .MemToRegW(MemToRegW), //out
+    .destAddW(destAddW),//out
+    .MemToRegW(MemToRegW),
     .RegWriteW(RegWriteW),
     .MemReadDataW(MemReadDataW),
     .alu_resultW(alu_resultW)

@@ -1,9 +1,9 @@
 module BranchDetect(
-    input   [15:0]      srcdata1, srcdata2,
-    input               branchD,
-    input   [3:0]       destaddD,
-    input   [11:0]      pcD,
-    output  [11:0]      PC_branch
+    input       [15:0]      srcdata1, srcdata2,
+    input                   branchD,
+    input       [3:0]       destaddD,
+    input       [11:0]      pcD,
+    output reg  [11:0]      PC_branch
 );
 
 always@(*)begin
@@ -14,4 +14,3 @@ always@(*)begin
 end
 
 endmodule
-

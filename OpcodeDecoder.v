@@ -4,7 +4,7 @@ module OpcodeDecoder(
     output  reg flush,     //HazardUnit
     output  reg RegWrite,  //to WriteBackStage
     output  reg MemToReg,  //to MemStage
-    output  reg MemRead,
+    output  reg MemWrite,
     output  reg immediate, //to DecodeStage
     output  [1:0] o_alufunc
 ); //to excute register
@@ -25,7 +25,7 @@ always @(*) begin
         LDA             : flag = 6'b001010;
         STA             : flag = 6'b000100;
         IMM             : flag = 6'b001001;
-        JAF             : flag = 6'b110000;
+        BAF             : flag = 6'b110000;
         default         : flag = 6'b000000; 
     endcase
 end

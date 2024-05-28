@@ -2,8 +2,8 @@ module ProgramCounter(
     input           clk,
     input           reset,
     input           enable,
-    input  [11:0]   i_pcOld
-    output [11:0]   o_pcNew,
+    input  [11:0]   i_pcOld,
+    output [11:0]   o_pcNew
 );
 
 reg     [11:0]      r_pcNew;

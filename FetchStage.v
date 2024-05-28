@@ -6,10 +6,10 @@ module FetchStage(
 
 PC_Adder    inst_PCAdder(
     .i_pcOld(i_pcF),
-    .o_pcNew(o_pcF),
+    .o_pcNew(o_pcF)
 );
 
-InstMem     inst_InstMem(
+Instruction_Mem     inst_InstMem(
     .PCAdd_pc(o_pcF),
     .M_instruction(o_instF)
 );

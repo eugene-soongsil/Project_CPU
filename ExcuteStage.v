@@ -6,12 +6,10 @@ module ExcuteStage(
 );
 
 ALU     instALU(
-    .ALU_control(aluFuncE),
+    .ALU_func(aluFuncE),
     .ALU_srcdata_1(srcDataE1),
     .ALU_srcdata_2(srcDataD2),
-    .ALU_result(resultE)
+    .ALU_result(alu_resultE)
 );
-
-assign o_write_add = i_destadd;
 
 endmodule
