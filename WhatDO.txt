@@ -4,6 +4,9 @@ Now, What should i do
 2. flush -> branch로 대채 후 기능 추가
 3. data hazard -> excutestage에 dataforward입력신호 추가
 alu->decodestage로?? readdata변경??
+controlunit 에서 RegWrite시 forward 신호 발생?
+==== forward랑 i_forward_add decodestage, registerfile에 추가했음
+
 
 
 style:
@@ -17,3 +20,4 @@ style:
 5. FSM은 모듈 최 상단에 기술
 6. 조건문이 1비트일때는 bool로 사용해서 비교하도록
 -> 타이밍 단축 및 합성 최적화
+

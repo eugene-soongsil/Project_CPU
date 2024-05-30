@@ -77,7 +77,6 @@ ExcuteRegister      inst_ExcuteRegister(
     .srcDataD2(srcDataD2),
     .destAddD(destAddD),
     .flushC(flushC),
-    //.pcD(pcD), //?
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),

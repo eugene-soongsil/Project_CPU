@@ -6,11 +6,11 @@ module DecodeStage(
     input  [15:0]    i_write_data,
     input            immediateC,
     input  [15:0]    i_inst,
-
     input            branchD,
     input   [11:0]   pcD,
+    input            forward,
+    input   [3:0]    i_forward_add,
     output  [11:0]   PC_branch,
-
     output [3:0]     opcodeDP,
     output [3:0]     destaddD,
     output [15:0]    srcdataD1, srcdataD2
@@ -29,6 +29,8 @@ Register_File    inst_ResisterFile(
     .clk(clk),
     .reset(reset),
     .i_write_en(write_en),
+    .forward(forward),
+    .i_forward_add(i_forward_add),
     .immediateC(immediateC),
     .i_read_add1(i_inst[11:8]),
     .i_read_add2(i_inst[7:4]),
