@@ -4,7 +4,7 @@ module Team4_CPU(
 );
 
 wire                branchC, flushC, RegWriteC, MemWriteC, MemToRegC,
-                    immediateC;
+                    immediateC, forwardC; 
 wire    [1:0]       alufuncC;
 wire    [3:0]       opcodeDP;
 
@@ -18,6 +18,7 @@ DataPath        inst_DataPath(
     .MemWriteC(MemWriteC),
     .MemToRegC(MemToRegC),
     .immediateC(immediateC),
+    .forwardC(forwardC),
     .alufuncC(alufuncC),
     .opcodeDP(opcodeDP), //out
     .ResultW(DataOut)
@@ -31,6 +32,7 @@ ControlUnit     inst_ControlUnit(
     .MemWriteD(MemWriteC),
     .MemToRegD(MemToRegC),
     .immediateD(immediateC),
+    .forwardD(forwardC),
     .alufuncD(alufuncC)
 );
 

@@ -15,5 +15,4 @@ module Instruction_Mem(
 
     assign M_instruction = instM[PCAdd_pc];
 
-
-endmodule   
+endmodule

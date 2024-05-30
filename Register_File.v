@@ -5,6 +5,7 @@ module Register_File(
     input              forward,
     input              immediateC,
     input       [3:0]  i_forward_add,
+    input       [15:0] i_forward_data,
     input       [3:0]  i_read_add1,
     input       [3:0]  i_read_add2,
     input       [3:0]  i_write_add,
@@ -20,10 +21,14 @@ always@(*)begin
         r_read_add1 = 0;
         r_read_add2 = 0;
     end
-    else if(forward && (i_read_add1 == i_forward_add))
+    else if(forward && (i_read_add1 == i_forward_add))begin
         r_read_add1 = i_forward_add;
-    else if(forward && (i_read_add2 == i_forward_add))
+        r_read_add2 = i_read_add2;
+    end
+    else if(forward && (i_read_add2 == i_forward_add))begin
+        r_read_add1 = i_read_add1;
         r_read_add2 = i_forward_add;
+    end
     else begin
         r_read_add1 = i_read_add1;
         r_read_add2 = i_read_add2;
@@ -55,12 +60,18 @@ always@(*)begin
         o_read_data1 = registers[r_read_add1];
         o_read_data2 = {12'd0, r_read_add2};
     end
-    //else if(forward)begin
+    else if(forward && (i_read_add1 == i_forward_add))begin
+        o_read_data1 = i_forward_data;
+        o_read_data2 = registers[r_read_add2];
+    end
+    else if(forward && (i_read_add2 == i_forward_add))begin
+        o_read_data1 = registers[r_read_add1];
+        o_read_data2 = i_forward_data;
+    end
     else begin
         o_read_data1 = registers[r_read_add1];
         o_read_data2 = registers[r_read_add2];
     end
 end
-
 
 endmodule

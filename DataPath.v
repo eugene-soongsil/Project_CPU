@@ -1,22 +1,23 @@
 module DataPath(
     input               clk, reset, enable,
-    input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
+    input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC, forwardC,
     input   [1:0]       alufuncC,
     output  [3:0]       opcodeDP,
     output  [15:0]      ResultW
 );
 
 wire                    RegWriteE, RegWriteM, RegWriteW, MemToRegE, MemToRegM, MemToRegW,
-                        MemWriteE, MemWriteM;
+                        MemWriteE, MemWriteM, forwardE;
 wire    [1:0]           aluFuncE;
-wire    [3:0]           destAddD, 
+wire    [3:0]           forward_addD, forward_addE,
+                        destAddD, 
                         destAddE, 
                         destAddM, 
                         destAddW;
 wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
 wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
-                        alu_resultMout;
+                        alu_resultMout, forward_dataE;
 
 MUX_12bit           inst_MUX_PC(
     .in1(PC_branch),
@@ -46,7 +47,8 @@ DecodeRegister      inst_DecodeRegister(
     .pcF(w_pcF),
     .instF(w_instF),
     .pcD(w_pcD), //out
-    .instD(w_instD)
+    .instD(w_instD),
+    .forward_addD(forward_addD)
 );
 
 DecodeStage         inst_DecodeStage(
@@ -59,6 +61,9 @@ DecodeStage         inst_DecodeStage(
     .i_inst(w_instD),
     .branchD(branchC),
     .pcD(w_pcD),
+    .forwardE(forwardE),
+    .forward_addE(forward_addE),
+    .forward_dataE(forward_dataE),
     .PC_branch(PC_branch), //out
     .opcodeDP(opcodeDP),
     .destaddD(destAddD),
@@ -72,18 +77,22 @@ ExcuteRegister      inst_ExcuteRegister(
     .RegWriteC(RegWriteC),
     .MemWriteC(MemWriteC),
     .MemToRegC(MemToRegC),
+    .forwardC(forwardC),
     .alufuncC(alufuncC), //CU
     .srcDataD1(srcDataD1),
     .srcDataD2(srcDataD2),
     .destAddD(destAddD),
+    .forward_addD(forward_addD),
     .flushC(flushC),
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),
+    .forwardE(forwardE),
     .alufuncE(aluFuncE),
     .srcDataE1(srcDataE1),
     .srcDataE2(srcDataE2),
-    .destAddE(destAddE)
+    .destAddE(destAddE),
+    .forward_addE(forward_addE)
 );
 
 ExcuteStage         inst_ExcuteStage(
