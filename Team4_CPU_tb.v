@@ -17,14 +17,14 @@ initial begin
     reset = 0;
     #10
     reset = 1;
-    #10
+    #30
     enable = 1;
     #1000   
     $finish;
 end
 
 always begin
-    #50
+    #20
     clk = ~clk;
 end
 

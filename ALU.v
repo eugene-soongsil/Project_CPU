@@ -11,13 +11,12 @@ parameter   ADD = 2'b00,
             SLT = 2'b11;
 
 always@(*)begin
+    ALU_result = 16'h0000;
     case(ALU_func)
             ADD: ALU_result = ALU_srcdata_1 + ALU_srcdata_2; 
             SUB: ALU_result = ALU_srcdata_1 - ALU_srcdata_2;
             MUL: ALU_result = ALU_srcdata_1 * ALU_srcdata_2;
-            SLT: ALU_result = (ALU_srcdata_1 < ALU_srcdata_2) ? {{(15){1'b0}}, 1'b1} :  {(16){1'b0}};  
-        default:
-            ALU_result = 16'h0000;
+            SLT: ALU_result = (ALU_srcdata_1 < ALU_srcdata_2) ? {{(15){1'b0}}, 1'b1} :  {(16){1'b0}};
     endcase
 end
 

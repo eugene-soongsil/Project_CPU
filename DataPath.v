@@ -9,7 +9,7 @@ module DataPath(
 wire                    RegWriteE, RegWriteM, RegWriteW, MemToRegE, MemToRegM, MemToRegW,
                         MemWriteE, MemWriteM, forwardE;
 wire    [1:0]           aluFuncE;
-wire    [3:0]           forward_addD, forward_addE,
+wire    [3:0]           forward_addE,
                         destAddD, 
                         destAddE, 
                         destAddM, 
@@ -47,8 +47,7 @@ DecodeRegister      inst_DecodeRegister(
     .pcF(w_pcF),
     .instF(w_instF),
     .pcD(w_pcD), //out
-    .instD(w_instD),
-    .forward_addD(forward_addD)
+    .instD(w_instD)
 );
 
 DecodeStage         inst_DecodeStage(
@@ -63,7 +62,7 @@ DecodeStage         inst_DecodeStage(
     .pcD(w_pcD),
     .forwardE(forwardE),
     .forward_addE(forward_addE),
-    .forward_dataE(forward_dataE),
+    .forward_dataE(alu_resultE),
     .PC_branch(PC_branch), //out
     .opcodeDP(opcodeDP),
     .destaddD(destAddD),
@@ -82,7 +81,6 @@ ExcuteRegister      inst_ExcuteRegister(
     .srcDataD1(srcDataD1),
     .srcDataD2(srcDataD2),
     .destAddD(destAddD),
-    .forward_addD(forward_addD),
     .flushC(flushC),
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),

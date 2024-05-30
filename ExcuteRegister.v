@@ -3,7 +3,7 @@ module ExcuteRegister(
     input               RegWriteC, MemWriteC, MemToRegC, forwardC, //from opcode1
     input       [1:0]   alufuncC,              //from opcode2
     input       [15:0]  srcDataD1, srcDataD2,//from inst2,3
-    input       [3:0]   destAddD, forward_addD,       //form inst4
+    input       [3:0]   destAddD,       //form inst4
     output reg          RegWriteE, MemWriteE, MemToRegE, forwardE, //none use, to MemReg
     output reg  [1:0]   alufuncE, //Excute use
     output reg  [15:0]  srcDataE1, srcDataE2,
@@ -11,7 +11,7 @@ module ExcuteRegister(
 );
 
 always@(posedge clk or negedge reset)begin
-    if(~reset | flushC)begin
+    if(~reset || flushC)begin
         RegWriteE <= 1'b0;
         MemWriteE <= 1'b0;
         MemToRegE <= 1'b0;
@@ -30,7 +30,7 @@ always@(posedge clk or negedge reset)begin
         alufuncE  <= alufuncC;
         srcDataE1 <= srcDataD1;
         srcDataE2 <= srcDataD2;
-        forward_addE <= forward_addD;
+        forward_addE <= destAddD;
         destAddE  <= destAddD;
     end
 end

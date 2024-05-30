@@ -17,6 +17,8 @@ module DecodeStage(
     output [15:0]    srcdataD1, srcdataD2
 );
 
+wire    [3:0]       read_add1, read_add2;
+
 BranchDetect    inst_BranchDetect(
     .srcdata1(srcdataD1),
     .srcdata2(srcdataD2),
@@ -33,15 +35,17 @@ Register_File    inst_ResisterFile(
     .forwardE(forwardE),
     .forward_dataE(forward_dataE),
     .immediateC(immediateC),
-    .forward_addE(forward_addE)
-    .i_read_add1(i_inst[11:8]),
-    .i_read_add2(i_inst[7:4]),
+    .forward_addE(forward_addE),
+    .i_read_add1(read_add1),
+    .i_read_add2(read_add2),
     .i_write_add(destAddW),
     .i_write_data(i_write_data),
     .o_read_data1(srcdataD1), //out
     .o_read_data2(srcdataD2)
 );
 
+assign read_add1 = i_inst[11:8];
+assign read_add2 = i_inst[7:4];
 assign destaddD = i_inst[3:0];
 assign opcodeDP = i_inst[15:12];
 

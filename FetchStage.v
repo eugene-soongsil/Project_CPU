@@ -10,7 +10,7 @@ PC_Adder    inst_PCAdder(
 );
 
 Instruction_Mem     inst_InstMem(
-    .PCAdd_pc(o_pcF),
+    .PCAdd_pc(i_pcF),
     .M_instruction(o_instF)
 );
 

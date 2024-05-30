@@ -7,41 +7,44 @@ module OpcodeDecoder(
     output  reg MemWrite,
     output  reg immediate, //to DecodeStage
     output  reg forward,
-    output  [1:0] o_alufunc
+    output  reg [1:0] o_alufunc
 ); //to excute register
 
-reg [6:0] flag;
+reg [8:0] flag;
 
-parameter LDA            = 2'b00,
-          STA            = 2'b01,
-          IMM            = 2'b10,
-          BAF            = 2'b11;
-
-          /*LDA_immadd
-          LDA_
-          STA
-          CAL_add
-          CAL_sub
-          CAL_mul
-          CAL_SLT
-          BAF_immsub
-          BAF_reg*/
+parameter 
+          LDA_imm       = 4'b0000,
+          STA_imm       = 4'b0001,
+          CAL_add       = 4'b0010,
+          CAL_sub       = 4'b0011,
+          CAL_mul       = 4'b0100,
+          CAL_SLT       = 4'b0101,
+          IMM_add       = 4'b0110,
+          IMM_sub       = 4'b0111,
+          IMM_mul       = 4'b1000,
+          BAF_immsub    = 4'b1001,
+          BAF_regsub    = 4'b1010;
 
  
 always @(*) begin
-    {branch, flush, RegWrite, MemWrite, MemToReg, immediate, forward} = flag;
+    {o_alufunc, branch, flush, RegWrite, MemWrite, MemToReg, immediate, forward} = flag;
 end
 
 always @(*) begin
-    flag = 7'b0000000;
-    case(i_opcode[3:2])
-        LDA             : flag = 7'b0010111;
-        STA             : flag = 7'b0001000;
-        IMM             : flag = 7'b0010011;
-        BAF             : flag = 7'b1100000;//src1-imm = 0 -> branch
+    flag = 9'b00_0000000;
+    case(i_opcode[3:0])
+        LDA_imm     : flag =    9'b00_0010111;
+        STA_imm     : flag =    9'b00_0001010;
+        CAL_add     : flag =    9'b00_0010001;
+        CAL_sub     : flag =    9'b01_0010001;
+        CAL_mul     : flag =    9'b10_0010001;
+        CAL_SLT     : flag =    9'b11_0010001;
+        IMM_add     : flag =    9'b00_0010011;
+        IMM_sub     : flag =    9'b01_0010011;
+        IMM_mul     : flag =    9'b10_0010011;
+        BAF_immsub  : flag =    9'b01_1100010;
+        BAF_regsub  : flag =    9'b01_1100000;
     endcase
 end
-
-assign o_alufunc = i_opcode[1:0];
 
 endmodule
