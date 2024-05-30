@@ -1,13 +1,12 @@
 `timescale 1ns/1ps
 module  Team4_CPU_tb();
 
-reg             clk, reset, enable;
+reg             clk, reset;
 wire    [15:0]  DataOut;
 
 Team4_CPU   inst_CPU(
     .clk(clk),
     .reset(reset),
-    .enable(enable),
     .DataOut(DataOut)
 );
 
@@ -17,8 +16,6 @@ initial begin
     reset = 0;
     #10
     reset = 1;
-    #30
-    enable = 1;
     #1000   
     $finish;
 end

@@ -1,21 +1,20 @@
 module Team4_CPU(
-    input               clk, reset, enable,
+    input               clk, reset,
     output  [15:0]      DataOut
 );
 
 wire                branchC, flushC, RegWriteC, MemWriteC, MemToRegC,
-                    immediateC, forwardC,
+                    immediateC, forwardC, MemToRegE, RegWriteE,
                     stallF, stallD,
                     forwardA, forwardB,
                     flushE, InstBranch;
 wire    [1:0]       alufuncC;
-wire    [3:0]       opcodeDP, srcAdd1, srcAdd2;
-wire    [15:0]      srcData1, srcData2;
+wire    [3:0]       opcodeDP, srcAdd1, srcAdd2, destAddE;
+wire    [15:0]      RegDataA, RegDataB;
 
 DataPath        inst_DataPath(
     .clk(clk),
     .reset(reset),
-    .enable(enable),
     .branchC(branchC),
     .flushC(flushC),
     .RegWriteC(RegWriteC),
@@ -23,14 +22,20 @@ DataPath        inst_DataPath(
     .MemToRegC(MemToRegC),
     .immediateC(immediateC),
     .alufuncC(alufuncC),
+    .stallF(stallF),
+    .stallD(stallD),
+    .forwardA(forwardA),
+    .forwardB(forwardB),
+    .InstBranch(InstBranch),
     .opcodeDP(opcodeDP), //out
     .ResultW(DataOut),
     .RegWriteE(RegWriteE),
     .MemToRegE(MemToRegE),
     .srcAdd1(srcAdd1),
     .srcAdd2(srcAdd2),
-    .srcDataD1(srcData1),
-    .srcDataD2(srcData2),
+    .destAddE(destAddE),
+    .RegDataA(RegDataA),
+    .RegDataB(RegDataB)
 );
 
 ControlUnit     inst_ControlUnit(
@@ -54,8 +59,9 @@ HazardUnit      inst_HazardUnit(
     .forwardD(forwardC),
     .srcAdd1(srcAdd1),
     .srcAdd2(srcAdd2),
-    .srcData1(srcData1),
-    .srcData2(srcData2),
+    .destAddE(destAddE),
+    .srcData1(RegDataA),
+    .srcData2(RegDataB),
     .stallF(stallF), //out
     .stallD(stallD),
     .forwardA(forwardA),

@@ -5,5 +5,5 @@ module MUX_16bit (
 );
 
 assign out = (sel) ? in1 : in2;
-    
+
 endmodule

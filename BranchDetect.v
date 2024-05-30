@@ -7,7 +7,7 @@ module BranchDetect(
 
 always@(*)begin
     if(InstBranch)
-        PC_branch = pcD + destaddD;
+        PC_branch = pcD - destaddD;
     else
         PC_branch = pcD;
 end

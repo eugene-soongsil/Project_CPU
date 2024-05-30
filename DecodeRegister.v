@@ -11,7 +11,7 @@ always@(posedge clk or negedge reset)begin
         pcD   <= 0;
         instD <= 0;
     end
-    else if(enable)begin
+    else if(!enable)begin
         pcD   <= pcF;
         instD <= instF;
     end

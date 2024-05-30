@@ -15,8 +15,6 @@ module DecodeStage(
     output [15:0]    srcdataD1, srcdataD2
 );
 
-wire    [3:0]       srcAdd1, srcAdd2;
-
 BranchDetect    inst_BranchDetect(
     .InstBranch(InstBranch),
     .destaddD(destaddD),
@@ -36,9 +34,7 @@ Register_File    inst_ResisterFile(
     .o_read_data1(srcdataD1), //out
     .o_read_data2(srcdataD2)
 );
-
-assign 
-
+ 
 assign srcAdd1 = i_inst[11:8];
 assign srcAdd2 = i_inst[7:4];
 assign destaddD = i_inst[3:0];

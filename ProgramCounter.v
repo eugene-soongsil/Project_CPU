@@ -11,7 +11,7 @@ reg     [11:0]      r_pcNew;
 always@(posedge clk or negedge reset)begin
     if(~reset)
         r_pcNew <= 0;
-    else if(enable)
+    else if(!enable)
         r_pcNew <= i_pcOld;
 end
 

@@ -1,15 +1,16 @@
 module DataPath(
-    input               clk, reset, enable,
+    input               clk, reset,
+    input               stallF, stallD, forwardA, forwardB,
+    input               InstBranch,
     input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
     input   [1:0]       alufuncC,
     output              RegWriteE, MemToRegE,//to DH
-    output  [3:0]       srcAdd1, srcAdd2,
-    output  [15:0]      srcDataD1, srcDataD2,
+    output  [3:0]       srcAdd1, srcAdd2, destAddE,
     output  [3:0]       opcodeDP,
-    output  [15:0]      ResultW
+    output  [15:0]      ResultW, RegDataA, RegDataB
 );
 
-wire                    RegWriteE, RegWriteM, RegWriteW, MemToRegE, MemToRegM, MemToRegW,
+wire                    RegWriteM, RegWriteW, MemToRegM, MemToRegW,
                         MemWriteE, MemWriteM, forwardE;
 wire    [1:0]           aluFuncE;
 wire    [3:0]           forward_addE,
@@ -18,9 +19,9 @@ wire    [3:0]           forward_addE,
                         destAddM, 
                         destAddW;
 wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
-wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDataE2,
+wire    [15:0]          w_instF, w_instD, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
-                        alu_resultMout, forward_dataE;
+                        alu_resultMout;
 
 MUX_12bit           inst_MUX_PC(
     .in1(PC_branch),
@@ -32,7 +33,7 @@ MUX_12bit           inst_MUX_PC(
 ProgramCounter      inst_ProgramCounter(
     .clk(clk),
     .reset(reset),
-    .enable(enable),
+    .enable(stallF),
     .i_pcOld(MUX_pc), //from decode
     .o_pcNew(w_pcNew) //out
 );
@@ -46,7 +47,7 @@ FetchStage          inst_FetchStage(
 DecodeRegister      inst_DecodeRegister(
     .clk(clk),
     .reset(reset),
-    .enable(enable),
+    .enable(stallD),
     .pcF(w_pcF),
     .instF(w_instF),
     .pcD(w_pcD), //out
@@ -73,14 +74,14 @@ DecodeStage         inst_DecodeStage(
 );
 
 MUX_16bit           inst_MUX_RegDataA(
-    .in1(forward_dataE),
+    .in1(alu_resultE),
     .in2(srcDataD1),
     .sel(forwardA),
     .out(RegDataA)
 );
 
-MUX_16bit           inst_MUX_RegDataA(
-    .in1(forward_dataE),
+MUX_16bit           inst_MUX_RegDataB(
+    .in1(alu_resultE),
     .in2(srcDataD2),
     .sel(forwardB),
     .out(RegDataB)
@@ -103,7 +104,7 @@ ExcuteRegister      inst_ExcuteRegister(
     .alufuncE(aluFuncE),
     .srcDataE1(srcDataE1),
     .srcDataE2(srcDataE2),
-    .destAddE(destAddE),
+    .destAddE(destAddE)
 );
 
 ExcuteStage         inst_ExcuteStage(
@@ -131,7 +132,6 @@ MemoryRegister      inst_MemoryRegister(
 MemoryStage         inst_MemoryStage(
     .clk(clk),
     .reset(reset),
-    .destAddM(destAddM),
     .MemWriteM(MemWriteM),
     .alu_resultM(alu_resultM),
     .MemReadDataM(MemReadDataM), //out
