@@ -9,7 +9,10 @@ module DataPath(
 wire                    RegWriteE, RegWriteM, RegWriteW, MemToRegE, MemToRegM, MemToRegW,
                         MemWriteE, MemWriteM;
 wire    [1:0]           aluFuncE;
-wire    [3:0]           destAddD, destAddE, destAddM;
+wire    [3:0]           destAddD, 
+                        destAddE, 
+                        destAddM, 
+                        destAddW;
 wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
 wire    [15:0]          w_instF, w_instD, srcDataD1, srcDataD2, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
