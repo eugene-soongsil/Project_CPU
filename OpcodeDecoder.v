@@ -6,7 +6,7 @@ module OpcodeDecoder(
     output  reg MemToReg,  //to MemStage
     output  reg MemWrite,
     output  reg immediate, //to DecodeStage
-    output  reg forward,
+    //output  reg forward,
     output  reg [1:0] o_alufunc
 ); //to excute register
 

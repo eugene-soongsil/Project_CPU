@@ -1,7 +1,10 @@
 module DataPath(
     input               clk, reset, enable,
-    input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC, forwardC,
+    input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
     input   [1:0]       alufuncC,
+    output              RegWriteE, MemToRegE,//to DH
+    output  [3:0]       srcAdd1, srcAdd2,
+    output  [15:0]      srcDataD1, srcDataD2,
     output  [3:0]       opcodeDP,
     output  [15:0]      ResultW
 );
@@ -58,16 +61,29 @@ DecodeStage         inst_DecodeStage(
     .i_write_data(ResultW),
     .immediateC(immediateC),
     .i_inst(w_instD),
-    .branchD(branchC),
+    .InstBranch(InstBranch),
     .pcD(w_pcD),
-    .forwardE(forwardE),
-    .forward_addE(forward_addE),
-    .forward_dataE(alu_resultE),
     .PC_branch(PC_branch), //out
     .opcodeDP(opcodeDP),
     .destaddD(destAddD),
+    .srcAdd1(srcAdd1),
+    .srcAdd2(srcAdd2),
     .srcdataD1(srcDataD1),
     .srcdataD2(srcDataD2)
+);
+
+MUX_16bit           inst_MUX_RegDataA(
+    .in1(forward_dataE),
+    .in2(srcDataD1),
+    .sel(forwardA),
+    .out(RegDataA)
+);
+
+MUX_16bit           inst_MUX_RegDataA(
+    .in1(forward_dataE),
+    .in2(srcDataD2),
+    .sel(forwardB),
+    .out(RegDataB)
 );
 
 ExcuteRegister      inst_ExcuteRegister(
@@ -76,21 +92,18 @@ ExcuteRegister      inst_ExcuteRegister(
     .RegWriteC(RegWriteC),
     .MemWriteC(MemWriteC),
     .MemToRegC(MemToRegC),
-    .forwardC(forwardC),
     .alufuncC(alufuncC), //CU
-    .srcDataD1(srcDataD1),
-    .srcDataD2(srcDataD2),
+    .srcDataD1(RegDataA),
+    .srcDataD2(RegDataB),
     .destAddD(destAddD),
     .flushC(flushC),
     .RegWriteE(RegWriteE), //out
     .MemWriteE(MemWriteE),
     .MemToRegE(MemToRegE),
-    .forwardE(forwardE),
     .alufuncE(aluFuncE),
     .srcDataE1(srcDataE1),
     .srcDataE2(srcDataE2),
     .destAddE(destAddE),
-    .forward_addE(forward_addE)
 );
 
 ExcuteStage         inst_ExcuteStage(

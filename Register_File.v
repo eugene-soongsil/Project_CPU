@@ -2,10 +2,7 @@ module Register_File(
     input              clk,
     input              reset,
     input              i_write_en,
-    input              forwardE,
     input              immediateC,
-    input       [3:0]  forward_addE,
-    input       [15:0] forward_dataE,
     input       [3:0]  i_read_add1,
     input       [3:0]  i_read_add2,
     input       [3:0]  i_write_add,
@@ -13,36 +10,6 @@ module Register_File(
     output reg  [15:0] o_read_data1,
     output reg  [15:0] o_read_data2
 );
-
-reg [3:0]   r_read_add1, r_read_add2;
-
-always@(*)begin
-    if(!reset)begin
-        r_read_add1 = 0;
-        r_read_add2 = 0;
-    end
-
-    else if(forwardE && (i_read_add1 == forward_addE))begin
-        r_read_add1 = forward_addE;
-        r_read_add2 = i_read_add2;
-    end
-
-    else if(forwardE && (i_read_add2 == forward_addE))begin
-        if(immediateC)begin
-            r_read_add1 = i_read_add1;
-            r_read_add2 = i_read_add2;
-        end
-        else begin
-        r_read_add1 = i_read_add1;
-        r_read_add2 = forward_addE;
-        end
-    end
-
-    else begin
-        r_read_add1 = i_read_add1;
-        r_read_add2 = i_read_add2;
-    end
-end
 
 //resister initialize and write-back(excute)
 reg [15:0] registers [0:15];
@@ -64,37 +31,16 @@ always@(*)begin
     if(!reset)begin
         o_read_data1 = 0;
         o_read_data2 = 0;
-    end/*
+    end
     else if(immediateC)begin
-        o_read_data1 = registers[r_read_add1];
-        o_read_data2 = {12'd0, r_read_add2};
-    end*/
-    else if(forwardE && (i_read_add1 == forward_addE))begin
-        if(immediateC)begin
-            o_read_data1 = forward_dataE;
-            o_read_data2 = {12'd0, r_read_add2};
-        end
-        else begin
-        o_read_data1 = forward_dataE;
-        o_read_data2 = registers[r_read_add2];
-        end
+        o_read_data1 = registers[i_read_add1];
+        o_read_data2 = {12'd0, i_read_add2};
     end
-
-    else if(forwardE && (i_read_add2 == forward_addE))begin
-        if(immediateC)begin
-            o_read_data1 = registers[r_read_add1];
-            o_read_data2 = {12'd0, r_read_add2};
-        end
-        else begin
-        o_read_data1 = registers[r_read_add1];
-        o_read_data2 = forward_dataE;
-        end
-    end
-
     else begin
-        o_read_data1 = registers[r_read_add1];
-        o_read_data2 = registers[r_read_add2];
+        o_read_data1 = registers[i_read_add1];
+        o_read_data2 = registers[i_read_add2];
     end
 end
+
 
 endmodule
