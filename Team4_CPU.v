@@ -5,18 +5,19 @@ module Team4_CPU(
 
 wire                branchC, flushC, RegWriteC, MemWriteC, MemToRegC,
                     immediateC, forwardC, MemToRegE, RegWriteE,
-                    stallF, stallD,
+                    stallF, stallD, /*flushF,*/ flushD,
                     forwardA, forwardB,
                     flushE, InstBranch;
 wire    [1:0]       alufuncC;
 wire    [3:0]       opcodeDP, srcAdd1, srcAdd2, destAddE;
-wire    [15:0]      RegDataA, RegDataB;
+wire    [15:0]      RegDataA, RegDataB, alu_resultE;
 
 DataPath        inst_DataPath(
     .clk(clk),
     .reset(reset),
-    .branchC(branchC),
-    .flushC(flushC),
+    .flushC(flushE),
+    //.flushF(flushF),
+    .flushD(flushD),
     .RegWriteC(RegWriteC),
     .MemWriteC(MemWriteC),
     .MemToRegC(MemToRegC),
@@ -35,7 +36,8 @@ DataPath        inst_DataPath(
     .srcAdd2(srcAdd2),
     .destAddE(destAddE),
     .RegDataA(RegDataA),
-    .RegDataB(RegDataB)
+    .RegDataB(RegDataB),
+    .alu_resultE(alu_resultE)
 );
 
 ControlUnit     inst_ControlUnit(
@@ -62,11 +64,14 @@ HazardUnit      inst_HazardUnit(
     .destAddE(destAddE),
     .srcData1(RegDataA),
     .srcData2(RegDataB),
+    .alu_resultE(alu_resultE),
     .stallF(stallF), //out
     .stallD(stallD),
     .forwardA(forwardA),
     .forwardB(forwardB),
     .flushE(flushE),
+    //.flushF(flushF),
+    .flushD(flushD),
     .InstBranch(InstBranch)
 );
 

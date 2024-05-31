@@ -16,12 +16,12 @@ initial begin
     reset = 0;
     #10
     reset = 1;
-    #1000   
+    #1500   
     $finish;
 end
 
 always begin
-    #20
+    #50
     clk = ~clk;
 end
 

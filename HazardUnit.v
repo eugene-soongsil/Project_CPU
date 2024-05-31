@@ -7,10 +7,10 @@ module HazardUnit(
     input               immediateD,
     input               forwardD,
     input    [3:0]      srcAdd1, srcAdd2, destAddE,
-    input    [15:0]     srcData1, srcData2,
+    input    [15:0]     srcData1, srcData2, alu_resultE,
     output  reg         stallF, stallD,
     output  reg         forwardA, forwardB, //to decode
-    output  reg         flushE, //to Excute
+    output  reg         /*flushF,*/ flushD, flushE, //to Excute
     output  reg         InstBranch
 );
 
@@ -24,7 +24,7 @@ reg lwstall;
 //assign flushE = (lwstall | InstBranch | flush);
 
 always@(*)begin
-    if(branch && (srcData1 == srcData2))
+    if(branch && (srcData1 == srcData2) && alu_resultE)
         InstBranch = 1'b1;
     else
         InstBranch = 1'b0;
@@ -63,10 +63,22 @@ always@(*)begin
 end
 
 always@(*)begin
-    if(lwstall || InstBranch || flush)
+    if(lwstall || (InstBranch &&flush))
         flushE = 1'b1;
     else
         flushE = 1'b0;
 end
+
+always@(*)begin
+    if(InstBranch)begin
+        //flushF = 1'b1;
+        flushD = 1'b1;
+    end
+    else begin
+        //flushF = 1'b0;
+        flushD = 1'b0;
+    end
+end
+
 
 endmodule

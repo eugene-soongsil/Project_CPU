@@ -1,5 +1,5 @@
 module DecodeRegister(
-    input                 clk, reset, enable,
+    input                 clk, reset, enable, flushD,
     input        [11:0]   pcF,
     input        [15:0]   instF,
     output reg   [11:0]   pcD,
@@ -7,7 +7,7 @@ module DecodeRegister(
 );
 
 always@(posedge clk or negedge reset)begin
-    if(~reset)begin
+    if(~reset | flushD)begin
         pcD   <= 0;
         instD <= 0;
     end

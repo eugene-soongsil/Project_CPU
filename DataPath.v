@@ -1,13 +1,13 @@
 module DataPath(
     input               clk, reset,
     input               stallF, stallD, forwardA, forwardB,
-    input               InstBranch,
-    input               branchC, flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
+    input               InstBranch, /*flushF,*/ flushD,
+    input               flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
     input   [1:0]       alufuncC,
     output              RegWriteE, MemToRegE,//to DH
     output  [3:0]       srcAdd1, srcAdd2, destAddE,
     output  [3:0]       opcodeDP,
-    output  [15:0]      ResultW, RegDataA, RegDataB
+    output  [15:0]      ResultW, RegDataA, RegDataB, alu_resultE
 );
 
 wire                    RegWriteM, RegWriteW, MemToRegM, MemToRegW,
@@ -18,23 +18,27 @@ wire    [3:0]           forward_addE,
                         destAddE, 
                         destAddM, 
                         destAddW;
-wire    [11:0]          MUX_pc, w_pcNew, w_pcF, w_pcD, PC_branch;
+wire    [11:0]          /*MUX_pc,*/w_pcNew, w_pcF, w_pcD, PC_branch;
 wire    [15:0]          w_instF, w_instD, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
-                        alu_resultMout;
+                        alu_resultMout, srcDataD1, srcDataD2;
 
+/*
 MUX_12bit           inst_MUX_PC(
     .in1(PC_branch),
     .in2(w_pcF),
-    .sel(branchC), //?
+    .sel(InstBranch), //?
     .out(MUX_pc)
-);
+);*/
 
 ProgramCounter      inst_ProgramCounter(
     .clk(clk),
     .reset(reset),
     .enable(stallF),
-    .i_pcOld(MUX_pc), //from decode
+    .InstBranch(InstBranch),
+    //.flushF(flushF),
+    .PC_branch(PC_branch),
+    .i_pcOld(w_pcF), //from decode
     .o_pcNew(w_pcNew) //out
 );
 
@@ -48,6 +52,7 @@ DecodeRegister      inst_DecodeRegister(
     .clk(clk),
     .reset(reset),
     .enable(stallD),
+    .flushD(flushD),
     .pcF(w_pcF),
     .instF(w_instF),
     .pcD(w_pcD), //out
