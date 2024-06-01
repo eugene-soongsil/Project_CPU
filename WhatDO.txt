@@ -13,6 +13,8 @@ forwarding은 구현했는데 LDA시에 3cycle delay 생기는 현상을 해결 
 5/31 forwarding 두개 동시에 이루어지지 못함... 해결 가능할까???
 
 
+
+
 style:
 1. parameter -> 대문자
 2. combinational case문은 초기화하는 방식으로 코드를 작성할것
@@ -25,3 +27,7 @@ style:
 6. 조건문이 1비트일때는 bool로 사용해서 비교하도록
 -> 타이밍 단축 및 합성 최적화
 
+문제해결:
+FetchRegister에서 Branch시에 stall이 걸려있어서 BranchPC값을
+받지 못하는 현상이 발생 -개고생함
+-> FetchRegister의 로직 변경으로 해결
