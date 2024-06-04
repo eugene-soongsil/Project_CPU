@@ -18,18 +18,10 @@ wire    [3:0]           forward_addE,
                         destAddE, 
                         destAddM, 
                         destAddW;
-wire    [11:0]          /*MUX_pc,*/w_pcNew, w_pcF, w_pcD, PC_branch;
+wire    [11:0]          w_pcNew, w_pcF, w_pcD, PC_branch;
 wire    [15:0]          w_instF, w_instD, srcDataE1, srcDataE2,
                         alu_resultE, alu_resultM, alu_resultW, MemReadDataM, MemReadDataW,
                         alu_resultMout, srcDataD1, srcDataD2;
-
-/*
-MUX_12bit           inst_MUX_PC(
-    .in1(PC_branch),
-    .in2(w_pcF),
-    .sel(InstBranch), //?
-    .out(MUX_pc)
-);*/
 
 ProgramCounter      inst_ProgramCounter(
     .clk(clk),
