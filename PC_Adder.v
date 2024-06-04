@@ -5,11 +5,4 @@ module PC_Adder(
 
 assign o_pcNew = i_pcOld + 12'd1;
 
-always@(*)begin
-    if(InstBranch)
-        o_pcNew = branchPC;
-    else
-        o_pcNew = i_pcOld + 12'd1;
-end
-
 endmodule

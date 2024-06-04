@@ -24,7 +24,7 @@ reg lwstall;
 //assign flushE = (lwstall | InstBranch | flush);
 
 always@(*)begin
-    if(branch && (srcData1 == srcData2) && alu_resultE)
+    if(branch && (srcData1 != srcData2) && alu_resultE)
         InstBranch = 1'b1;
     else
         InstBranch = 1'b0;
