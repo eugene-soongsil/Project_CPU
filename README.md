@@ -1,2 +1,1 @@
-![image](https://github.com/eugene-soongsil/Project_CPU/assets/163282235/8270eff5-1980-4f04-a8ae-3657e71383b5)
-Team4_CPU_Schemetic
+![CPU_TOP_finalSch](https://github.com/eugene-soongsil/Project_CPU/assets/163282235/67132849-565a-4cf8-be47-e375f71c50e9)
