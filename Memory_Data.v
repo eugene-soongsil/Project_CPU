@@ -7,7 +7,7 @@ module MemoryData(
 
 integer i;
 
-reg [15:0] mem[15:0];
+reg [15:0] mem[255:0];
 
 always@(posedge clk or negedge reset)begin //neg? pos?
     if(~reset)
