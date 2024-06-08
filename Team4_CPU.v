@@ -5,7 +5,7 @@ module Team4_CPU(
 
 wire                branchC, flushC, RegWriteC, MemWriteC, MemToRegC,
                     immediateC, forwardC, MemToRegE, RegWriteE,
-                    stallF, stallD, /*flushF,*/ flushD,
+                    stallF, stallD, flushD,
                     forwardA, forwardB,
                     flushE, InstBranch;
 wire    [1:0]       alufuncC;
@@ -16,7 +16,6 @@ DataPath        inst_DataPath(
     .clk(clk),
     .reset(reset),
     .flushC(flushE),
-    //.flushF(flushF),
     .flushD(flushD),
     .RegWriteC(RegWriteC),
     .MemWriteC(MemWriteC),
@@ -70,7 +69,6 @@ HazardUnit      inst_HazardUnit(
     .forwardA(forwardA),
     .forwardB(forwardB),
     .flushE(flushE),
-    //.flushF(flushF),
     .flushD(flushD),
     .InstBranch(InstBranch)
 );

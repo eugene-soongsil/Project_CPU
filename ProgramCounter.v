@@ -3,7 +3,6 @@ module ProgramCounter(
     input           reset,
     input           enable,
     input           InstBranch,
-    //input           flushF,
     input  [11:0]   PC_branch,
     input  [11:0]   i_pcOld,
     output [11:0]   o_pcNew

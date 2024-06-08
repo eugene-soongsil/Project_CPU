@@ -1,11 +1,11 @@
 module ExcuteRegister(
     input               clk, reset, flushC,
-    input               RegWriteC, MemWriteC, MemToRegC, //from opcode1
-    input       [1:0]   alufuncC,              //from opcode2
-    input       [15:0]  srcDataD1, srcDataD2,//from inst2,3
-    input       [3:0]   destAddD,       //form inst4
-    output reg          RegWriteE, MemWriteE, MemToRegE, //none use, to MemReg
-    output reg  [1:0]   alufuncE, //Excute use
+    input               RegWriteC, MemWriteC, MemToRegC,
+    input       [1:0]   alufuncC,              
+    input       [15:0]  srcDataD1, srcDataD2,
+    input       [3:0]   destAddD,       
+    output reg          RegWriteE, MemWriteE, MemToRegE,
+    output reg  [1:0]   alufuncE, 
     output reg  [15:0]  srcDataE1, srcDataE2,
     output reg  [3:0]   destAddE
 );

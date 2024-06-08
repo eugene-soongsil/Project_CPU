@@ -26,9 +26,8 @@ always @(negedge clk or negedge reset) begin //negedge clk for 1clock cycle
     end
 end
 
-//warning
 always@(*)begin
-    if(!reset)begin
+    if(~reset)begin
         o_read_data1 = 0;
         o_read_data2 = 0;
     end

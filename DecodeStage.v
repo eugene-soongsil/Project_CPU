@@ -11,7 +11,7 @@ module DecodeStage(
     output  [11:0]   PC_branch,
     output [3:0]     opcodeDP,
     output [3:0]     destaddD,
-    output [3:0]     srcAdd1, srcAdd2, //can connect?
+    output [3:0]     srcAdd1, srcAdd2,
     output [15:0]    srcdataD1, srcdataD2
 );
 

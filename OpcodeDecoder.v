@@ -1,11 +1,11 @@
 module OpcodeDecoder(
     input   [3:0] i_opcode,
-    output  reg branch,      //HazardUnit
-    output  reg flush,     //HazardUnit
-    output  reg RegWrite,  //to WriteBackStage
-    output  reg MemToReg,  //to MemStage
+    output  reg branch,
+    output  reg flush,
+    output  reg RegWrite,
+    output  reg MemToReg,
     output  reg MemWrite,
-    output  reg immediate, //to DecodeStage
+    output  reg immediate,
     output  reg forward,
     output  reg [1:0] o_alufunc
 ); //to excute register

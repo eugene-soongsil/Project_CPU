@@ -1,7 +1,7 @@
 module DataPath(
     input               clk, reset,
     input               stallF, stallD, forwardA, forwardB,
-    input               InstBranch, /*flushF,*/ flushD,
+    input               InstBranch, flushD,
     input               flushC, RegWriteC, MemWriteC, MemToRegC, immediateC,
     input   [1:0]       alufuncC,
     output              RegWriteE, MemToRegE,//to DH
@@ -28,9 +28,8 @@ ProgramCounter      inst_ProgramCounter(
     .reset(reset),
     .enable(stallF),
     .InstBranch(InstBranch),
-    //.flushF(flushF),
     .PC_branch(PC_branch),
-    .i_pcOld(w_pcF), //from decode
+    .i_pcOld(w_pcF), //from fetchstage
     .o_pcNew(w_pcNew) //out
 );
 

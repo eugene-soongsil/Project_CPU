@@ -9,7 +9,7 @@ integer i;
 
 reg [15:0] mem[255:0];
 
-always@(posedge clk or negedge reset)begin //neg? pos?
+always@(posedge clk or negedge reset)begin
     if(~reset)
         ;
     else if(write_en)
