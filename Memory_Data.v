@@ -3,7 +3,7 @@ module MemoryData(
     input      [15:0]      addrM,
     input      [15:0]      write_dataM,
     output     [15:0]      read_dataM
-);//516B memory
+);//128KB memory
 
 integer i;
 
