@@ -21,3 +21,7 @@ end
 assign read_dataM = mem[addrM];
 
 endmodule
+
+//CRC를 넣어서 데이터를 보내면 data랑 같이
+//CRC가 포함된 UART, ALU에 CRC연산 추가?
+//
