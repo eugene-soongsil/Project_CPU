@@ -12,7 +12,7 @@ reg [15:0] mem[511:0];
 always@(negedge clk or negedge reset)begin
     if(~reset)
         for(i=0; i<512; i=i+1)begin
-            mem[i] <= i;
+            mem[i] <= 0;
         end
     else if(write_en)
         mem[addrM] <= write_dataM;

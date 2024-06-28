@@ -15,7 +15,7 @@ module Instruction_Mem(
     end*/
 
     //Branch
-    initial begin 
+    /*initial begin 
         instM[0] = 16'b0110_0001_0100_0001; //r1 = r1 + 4
         instM[1] = 16'b0110_0010_0100_0010; //r2 = r2 + 4
         instM[2] = 16'b0110_0011_0001_0011; //r3 = r3 + 1
@@ -29,15 +29,16 @@ module Instruction_Mem(
         instM[9] = 16'b0110_1111_0000_1111; //unused
         instM[10] = 16'b0010_0011_0010_0100; //r4 = r3 + r2
     end
-
+    */
+    
     //Load and Store
-    /*initial begin
+    initial begin
         instM[0] = 16'b0000_0001_0100_0001; //r1 = mem[r1 + 4], (r1 = 4)
         instM[1] = 16'b0110_0010_0100_0010; //r2 = r2 + 4
         instM[2] = 16'b0110_0011_0001_0011; //r3 = r3 + 1
         instM[3] = 16'b0110_0001_1111_0001; //r1 = r1 + 15
         instM[4] = 16'b0001_0001_0000_0000; //mem[r1] = r1
-    end*/
+    end
     
 
     //Datafoward with LDA
